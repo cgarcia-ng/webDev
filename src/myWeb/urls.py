@@ -22,6 +22,7 @@ from .views import (
     practice1,
     order_numbers,
     access,
+    posts,
 )
 
 urlpatterns = [
@@ -29,5 +30,6 @@ urlpatterns = [
     path('hello-world/', hello_world),
     path('practice-1/', practice1),
     path('orderer-numbers/', order_numbers),
-    path('access/<int:edad>/<str:nombre>', access),
+    path('access/<int:edad>/<str:nombre>/', access),
+    path('posts/', posts),
 ]
