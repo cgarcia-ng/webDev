@@ -17,10 +17,17 @@ from django.contrib import admin
 from django.urls import path
 
 # from myWeb.views import hello_world
-from .views import hello_world, practice1
+from .views import (
+    hello_world,
+    practice1,
+    order_numbers,
+    access,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello-world/', hello_world),
-    path('practice-1/', practice1)
+    path('practice-1/', practice1),
+    path('orderer-numbers/', order_numbers),
+    path('access/<int:edad>/<str:nombre>', access),
 ]
