@@ -22,11 +22,11 @@ def hello_world(request):
     context = {
         'nombre': 'Carlos',
     }
-    return render(request, 'templates/index.html', context)
+    return render(request, 'index.html', context)
     # return HttpResponse('<h1>Hola Mundo. Mi nombre es Carlos</h1>')
 
 def practice1(request):
-    return render(request, 'templates/practice-1.html')
+    return render(request, 'practice-1.html')
 
 def order_numbers(request):
     # import pdb; pdb.set_trace()
@@ -52,7 +52,7 @@ def posts(request):
     context = {
         'posts': posts_list
     }
-    return render(request, 'templates/posts.html', context)
+    return render(request, 'posts.html', context)
     # content = []
     # for post in data:
     #     content.append(

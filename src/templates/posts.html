@@ -1,22 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block maincontent %}
     {% for post in posts %}
-    <div style="border: solid black 1px; margin: 0 auto; width: 50%; text-align: center;">
-        <h1 style="color: aqua;">{{ post.title }}</h1>
-        <figure>
-            <img src="{{ post.image }}" alt="">
-        </figure>
-        <p><strong>Descripción: </strong>{{ post.description }}</p>
-        <p><strong>Creado por: </strong>{{ post.user }}</p>
-    </div>
-    <br>
+        <div class="post">
+            <h1>{{ post.title }}</h1>
+            <figure>
+                <img src="{{ post.image }}" alt="">
+            </figure>
+            <p><strong>Descripción: </strong>{{ post.description }}</p>
+            <p><strong>Creado por: </strong>{{ post.user }}</p>
+        </div>
+        <br>
     {% endfor %}
-</body>
-</html>
+{% endblock %}
+
+{% block title %} {{ block.super }} Posts {% endblock %}
+
+{% block head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+{% endblock %}
+
