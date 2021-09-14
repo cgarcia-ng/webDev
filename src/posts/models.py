@@ -1,19 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
-# class User(models.Model):
-#     user_name   = models.CharField(max_length=50, unique=True)
-#     first_name  = models.CharField(max_length=50)
-#     last_name   = models.CharField(max_length=50)
-#     birthday    = models.DateField()
-#     bio         = models.TextField()
-#     email       = models.EmailField(unique=True)
-#     password    = models.CharField(max_length=50)
+class Post(models.Model):
+    user        = models.ForeignKey(User, on_delete=models.PROTECT)
+    title       = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    photo       = models.ImageField(upload_to='posts/photos')
 
-#     is_admin    = models.BooleanField(default=False)
+    created     = models.DateTimeField(auto_now_add=True)
+    updated     = models.DateTimeField(auto_now=True)
 
-#     created     = models.DateTimeField(auto_now_add=True)
-#     updated     = models.DateTimeField(auto_now=True)
-
-#     def __str__(self):
-#         return f'{self.first_name} {self.last_name}'
+    def __str__(self):
+        return f'{self.title} created by @{self.user.username}'

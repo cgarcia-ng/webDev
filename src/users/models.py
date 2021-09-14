@@ -10,6 +10,10 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to='users/avatars', null=True, blank=True)
     website = models.URLField(max_length=200, blank=True, null=True)
 
+    created     = models.DateTimeField(auto_now_add=True)
+    updated     = models.DateTimeField(auto_now=True)
+
+
     def __str__(self):
         return self.user.username
         # return f'{self.user.first_name} {self.user.last_name}'
