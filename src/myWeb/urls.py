@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 # from myWeb.views import hello_world
 from .views import (
@@ -24,7 +24,6 @@ from .views import (
     practice1,
     order_numbers,
     access,
-    posts,
 )
 
 urlpatterns = [
@@ -33,7 +32,7 @@ urlpatterns = [
     path('practice-1/', practice1),
     path('orderer-numbers/', order_numbers),
     path('access/<int:edad>/<str:nombre>/', access),
-    path('posts/', posts),
+    path('posts/', include('posts.urls')),
 ]
 
 if settings.DEBUG:

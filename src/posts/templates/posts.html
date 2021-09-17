@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block maincontent %}
+    <h2>{{ name }} se encuentra terminando esta página web</h2>
     {% for post in posts %}
         <div class="post">
             <h1>{{ post.title }}</h1>
             <figure>
-                <img src="{{ post.image }}" alt="">
+                <img src="{% get_media_prefix %}{{ post.photo }}" alt="">
             </figure>
             <p><strong>Descripción: </strong>{{ post.description }}</p>
             <p><strong>Creado por: </strong>{{ post.user }}</p>
