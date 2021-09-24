@@ -28,11 +28,12 @@ from .views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello-world/', hello_world),
-    path('practice-1/', practice1),
-    path('orderer-numbers/', order_numbers),
-    path('access/<int:edad>/<str:nombre>/', access),
-    path('posts/', include('posts.urls')),
+    path('hello-world/', hello_world, name='hello_world'),
+    path('practice-1/', practice1, name='practice1'),
+    path('orderer-numbers/', order_numbers, name='order_numbers'),
+    path('access/<int:edad>/<str:nombre>/', access, name='access'),
+    path('posts/', include('posts.urls', namespace='posts')),
+    path('users/', include('users.urls', namespace='users')),
 ]
 
 if settings.DEBUG:

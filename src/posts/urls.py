@@ -5,6 +5,7 @@ from .views import (
     list_posts,
 )
 
+app_name = 'posts'
 urlpatterns = [
-    path('', list_posts),
+    path('', list_posts, name='list_posts'),
 ]
