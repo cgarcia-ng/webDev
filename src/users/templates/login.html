@@ -1,21 +1,72 @@
-<form method="POST" action=".">
-  {% csrf_token %}
-  <img class="mb-4" src="https://getbootstrap.com/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+{% extends 'base.html' %}
+{% load static %}
 
-  {% if error %}
-  <p class="text-danger">{{ error }}</p>
-  {% else %}
-  <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-  {% endif %}
+{% block head %}
+{{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/signin.css' %}">
+{% endblock %}
 
-  <div class="form-floating">
-    <input type="text" class="form-control" name="username" placeholder="username">
-    <label for="username">Username</label>
-  </div>
-  <div class="form-floating">
-    <input type="password" class="form-control" name="password" placeholder="Password">
-    <label for="password">Password</label>
-  </div>
-  <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-  <p class="mt-5 mb-3 text-muted">&copy; {% if current_year %} 2021-{{ current_year }}{% else %} 2021 {% endif %}</p>
-</form>
+{% block styles %}
+<style>
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block maincontent %}
+<main class="form-signin">
+  <form method="POST" action=".">
+    {% csrf_token %}
+    <img class="mb-4" src="https://getbootstrap.com/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    {% if error %}
+    <div>
+        <p> {{error}} </p>
+    </div>
+    {% endif %}
+
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="username">
+      <label for="floatingInput">Username</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+  </form>
+</main>
+
+<!-- <h1> //User Login// </h1>
+<form method="POST", action="{% url 'users:user_login' %}">
+    {% csrf_token %}
+    {% if error %}
+        <div>
+            <p> {{error}} </p>
+        </div>
+    {% endif %}
+    <label for="username">
+        <span> Username </span>
+        <input type="text" name="username">
+    </label>
+    <label for="password">
+        <span> Password </span>
+        <input type="password" name="password">
+    </label>
+    <input type="submit" value="Log In">
+</form> -->
+{% endblock %}

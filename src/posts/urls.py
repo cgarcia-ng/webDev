@@ -7,5 +7,6 @@ from .views import (
 
 app_name = 'posts'
 urlpatterns = [
+    # localhost:8000/posts/
     path('', list_posts, name='list_posts'),
 ]

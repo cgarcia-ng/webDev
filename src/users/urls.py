@@ -6,5 +6,6 @@ from .views import (
 
 app_name = 'users'
 urlpatterns = [
+    # localhost:8000/users/login/
     path('login/', user_login, name='user_login'),
 ]
