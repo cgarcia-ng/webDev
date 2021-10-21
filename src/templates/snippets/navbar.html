@@ -1,0 +1,27 @@
+<nav class="navbar navbar-light bg-light mb-3 p-3">
+    <div class="container">
+
+        <div>
+            <a class="navbar-brand" href="#">
+                <img src="https://getbootstrap.com/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24">
+                BlogNG
+            </a>
+            <!-- <a class="navbar-brand">BlogNG</a> -->
+        </div>
+
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+        <div>
+            <a href="{% url 'users:user_login' %}">
+                <button class="btn btn-primary">Login</button>
+            </a>
+            <a href="#">
+                <button class="btn btn-outline-primary">Sign up</button>
+            </a>
+        </div>
+
+    </div>
+</nav>

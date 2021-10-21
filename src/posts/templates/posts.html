@@ -2,19 +2,74 @@
 {% load static %}
 
 {% block maincontent %}
-    <h2>{{ name }} se encuentra terminando esta página web</h2>
-    {% for post in posts %}
-        <div class="post">
-            <h1>{{ post.title }}</h1>
-            <figure>
-                <img src="{% get_media_prefix %}{{ post.photo }}" alt="">
-            </figure>
-            <p><strong>Descripción: </strong>{{ post.description }}</p>
-            <p><strong>Creado por: </strong>{{ post.user }}</p>
-        </div>
-        <br>
-    {% endfor %}
+{% include 'snippets/navbar.html' %}
+
+<div class="container">
+    <h2 class="mb-4">{{ name }} se encuentra terminando esta página web</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for post in posts %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{% get_media_prefix %}{{ post.photo }}" class="card-img-top" alt="...">
+                    <!-- <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.description }}</p>
+                    </div> -->
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% for post in posts %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{% get_media_prefix %}{{ post.photo }}" class="card-img-top" alt="...">
+                    <!-- <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.description }}</p>
+                    </div> -->
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% for post in posts %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{% get_media_prefix %}{{ post.photo }}" class="card-img-top" alt="...">
+                    <!-- <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.description }}</p>
+                    </div> -->
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
 {% endblock %}
+
+
+{% for post in posts %}
+    <div class="post">
+        <h1>{{ post.title }}</h1>
+        <figure>
+            <img src="{% get_media_prefix %}{{ post.photo }}" alt="">
+        </figure>
+        <p><strong>Descripción: </strong>{{ post.description }}</p>
+        <p><strong>Creado por: </strong>{{ post.user }}</p>
+    </div>
+    <br>
+{% endfor %}
+
+
 
 {% block title %} {{ block.super }} Posts {% endblock %}
 
