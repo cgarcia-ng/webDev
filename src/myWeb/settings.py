@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9%h0e!%8w5zmcu#ksyp=j@-$=xju+z(@e#*pozg+^a-q_1b--t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'mipaginaweb.com', 'www.mipaginaweb.com']
 
 
 # Application definition
@@ -135,3 +135,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/zapato/'
 MEDIA_ROOT = ''
+
+LOGIN_URL = 'users:user_login'

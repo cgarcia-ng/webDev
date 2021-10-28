@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block maincontent %}
+{% include 'snippets/navbar.html' %}
+<h1>{{ post.title }}</h1>
+<figure>
+    <img src="{{ post.get_image_url }}" alt="">
+</figure>
+<p>{{ post.description }}</p>
+<p>Created by: <strong>{{ post.user.username }}</strong></p>
+{% endblock %}
