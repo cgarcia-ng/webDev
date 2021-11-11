@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block maincontent %}
+{% include 'snippets/navbar.html' %}
+<h1>Hola, el formulario viene en camino...</h1>
+
+<form method='POST' action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class='btn btn-primary' type="submit" value="Save">
+</form>
+{% endblock %}

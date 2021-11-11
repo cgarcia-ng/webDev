@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
-from django.urls import reverse
+from django.shortcuts import render, redirect
 
 from .models import Post
+from .forms import CreatePostForm, NameForm
 
 # CRUD: Create | Retrieve | Update | Delete
 # Create your views here.
@@ -27,3 +27,17 @@ def post_detail(request, post_id):
         'post': post_detail
     }
     return render(request, 'post_details.html', context)
+
+@login_required
+def create_post(request):
+    if request.method == 'POST':
+        my_form = NameForm(request.POST, request.FILES)
+        if my_form.is_valid():
+            # my_form.save()
+            return redirect('posts:list_posts')
+    else:
+        my_form = NameForm()
+    context = {
+        'form': my_form
+    }
+    return render(request, 'post_create.html', context)
