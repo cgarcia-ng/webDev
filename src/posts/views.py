@@ -31,12 +31,12 @@ def post_detail(request, post_id):
 @login_required
 def create_post(request):
     if request.method == 'POST':
-        my_form = NameForm(request.POST, request.FILES)
+        my_form = CreatePostForm(request=request, data=request.POST, files=request.FILES)
         if my_form.is_valid():
-            # my_form.save()
+            my_form.save()
             return redirect('posts:list_posts')
     else:
-        my_form = NameForm()
+        my_form = CreatePostForm(request=request)
     context = {
         'form': my_form
     }
