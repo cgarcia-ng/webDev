@@ -41,3 +41,28 @@ def create_post(request):
         'form': my_form
     }
     return render(request, 'post_create.html', context)
+
+@login_required
+def update_post(request, post_id):
+    # try:
+    #     post = Post.objects.get(id=post_id)
+    # except Post.DoesNotExist:
+    #     raise Http404
+    post = get_object_or_404(Post, id=post_id)
+    if request.method == 'POST':
+        form = CreatePostForm(
+            request=request,
+            data=request.POST,
+            files=request.FILES,
+            instance=post
+        )
+        if form.is_valid():
+            form.save()
+            return redirect('posts:post_detail', post_id=post.id)
+    else:
+        form = CreatePostForm(request=request, instance=post)
+    context = {
+        'id': post_id,
+        'update_form': form
+    }
+    return render(request, 'update_post.html', context)

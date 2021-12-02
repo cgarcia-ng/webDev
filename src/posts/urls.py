@@ -4,7 +4,8 @@ from django.urls import path
 from .views import (
     list_posts,
     post_detail,
-    create_post
+    create_post,
+    update_post
 )
 
 app_name = 'posts'
@@ -14,5 +15,7 @@ urlpatterns = [
     # localhost:8000/post/id
     path('post/<int:post_id>/', post_detail, name='post_detail'),
     # localhost:8000/post/add
-    path('post/add/', create_post, name='post_create')
+    path('post/add/', create_post, name='post_create'),
+    # localhost:8000/post/id/edit
+    path('post/<int:post_id>/edit', update_post, name='post_update')
 ]
