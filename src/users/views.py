@@ -1,5 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.db.utils import IntegrityError
 from django.shortcuts import redirect, render
+
+from users.models import Profile
 
 # Create your views here.
 def user_login(request):
@@ -31,4 +35,36 @@ def user_logout(request):
     return redirect("posts:list_posts")
 
 def user_signup(request):
-    return render(request, "signup.html")
+    if request.method == "POST":
+        username_from_form = request.POST['username']
+        if " " in username_from_form:
+            return render(request, 'signup.html', {'error': 'Username must not contain spaces'})
+
+        password = request.POST['password']
+        password_confirmation = request.POST['password_confirmation']
+        if password != password_confirmation:
+            return render(request, 'signup.html', {'error': 'Password doesn not match'})
+
+        try:
+            user = User.objects.create_user(
+                username=username_from_form,
+                password=password
+            )
+        except IntegrityError:
+            return render(
+                request,
+                'signup.html',
+                {'error': f'User {username_from_form} already exists'}
+            )
+
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.email = request.POST['email']
+        user.save()
+
+        # profile = Profile.objects.create(user=user)
+        profile = Profile()
+        profile.user = user
+        profile.save()
+
+    return render(request, 'signup.html')
