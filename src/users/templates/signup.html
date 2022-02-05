@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ block.super }} User Registration
+{% endblock %}
+
+{% block head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/signin.css' %}">
+{% endblock %}
+
+{% block maincontent %}
+    <div class="m-5">
+    <div class="container text-start border col-4 pb-3">
+        <h2 class="mt-4 mb-4 text-center">Sign Up!</h2>
+        <div class="row justify-content-md-center">
+
+            <form class="col-8" method='post' action=".">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="username" required placeholder="User name">
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="first_name" required placeholder="First name">
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="last_name" required placeholder="Last name">
+                </div>
+
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="password" required placeholder="Password">
+                </div>
+
+                <div class="mb-4">
+                    <input type="password" class="form-control" name="password_confirmation" required placeholder="Password confirmation">
+                </div>
+
+                <div class="mb-3">
+                    <input type="email" class="form-control" name="email" required placeholder="Email address">
+                    <div id="emailHelp" class="form-text">We'll never share your email.</div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" type="button">Register User</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

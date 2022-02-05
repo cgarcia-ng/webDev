@@ -29,3 +29,6 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect("posts:list_posts")
+
+def user_signup(request):
+    return render(request, "signup.html")
