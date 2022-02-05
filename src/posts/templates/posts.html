@@ -10,17 +10,13 @@
         {% for post, time_diff in zipped %}
             <div class="col">
                 <div class="card h-100">
-                    <a href="{% url 'posts:post_detail' post.id %}">
-                        <img src="{% get_media_prefix %}{{ post.photo }}" class="card-img-top" alt="...">
-                    </a>
-                    <!-- <div class="card-body">
-                        <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text">{{ post.description }}</p>
-                    </div> -->
+                    <img src="{% get_media_prefix %}{{ post.photo }}" class="card-img-top" alt="...">
                     <div class="card-footer">
                         <!-- <small class="text-muted">{{ time_diff }}</small> -->
                         <!-- <small class="text-muted">{{ post.get_time_diff }}</small> -->
                         <small class="text-muted">Last updated {{ post.updated|timesince:now }}</small>
+                        <br/>
+                        <a href="{% url 'posts:post_detail' post.id %}">View Post</a>
                     </div>
                 </div>
             </div>

@@ -8,4 +8,20 @@
 </figure>
 <p>{{ post.description }}</p>
 <p>Created by: <strong>{{ post.user.username }}</strong></p>
+<div class="d-flex justify-content-center">
+    <div class="p-2 bd-highlight">
+        <a href="{% url 'posts:list_posts' %}">
+            <button class="btn btn-primary">Go Back Home</button>
+        </a>
+    </div>
+
+    {% if request.user.username == post.user.username %}
+    <div class="p-2 bd-highlight">
+        <a href="{% url 'posts:post_update' post.id %}">
+            <button class="btn btn-success">Edit</button>
+        </a>
+    </div>
+    {% endif %}
+
+</div>
 {% endblock %}

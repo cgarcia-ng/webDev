@@ -35,6 +35,11 @@ def post_detail(request, post_id):
     context = {
         'post': post_detail
     }
+    print('Logged user:', request.user.username)
+    print(type(request.user.username))
+    print('Created by user:', post_detail.user.username)
+    print(type(post_detail.user.username))
+    print(request.user.username == post_detail.user.username)
     return render(request, 'post_details.html', context)
 
 @login_required
