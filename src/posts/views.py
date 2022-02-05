@@ -1,23 +1,32 @@
+from datetime import datetime
+
 from django.contrib.auth.decorators import login_required
-from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 
 from .models import Post
-from .forms import CreatePostForm, NameForm
+from .forms import CreatePostForm
+from .utils import calculate_time_diff
 
 # CRUD: Create | Retrieve | Update | Delete
-# Create your views here.
 def list_posts(request):
-    #if request.user.is_authenticated:
+    now = datetime.now().astimezone()
     posts_from_db = Post.objects.all()
+
+    time_diff = []
+    for post in posts_from_db:
+        diff = now - post.updated
+        time_diff.append(calculate_time_diff(diff))
+
+    zipped = zip(posts_from_db, time_diff)
+
     context = {
         'posts': posts_from_db,
-        'name': 'Carlos'
+        'name': 'Carlos',
+        'zipped': zipped,
+        'now': now,
     }
     return render(request, 'posts.html', context)
-    #else:
-        #return HttpResponseRedirect(reverse('users:user_login'))
 
 @login_required
 def post_detail(request, post_id):
