@@ -67,4 +67,10 @@ def user_signup(request):
         profile.user = user
         profile.save()
 
+        return redirect('users:user_login')
+
     return render(request, 'signup.html')
+
+def user_profile(request):
+    context = {}
+    return render(request, "profile_update.html", context)
