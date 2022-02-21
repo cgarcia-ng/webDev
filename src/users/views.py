@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.shortcuts import redirect, render
 
+from .forms import ProfileUpdateForm
 from users.models import Profile
 
 # Create your views here.
@@ -72,5 +73,34 @@ def user_signup(request):
     return render(request, 'signup.html')
 
 def user_profile(request):
-    context = {}
+    user = request.user
+    profile = user.profile
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, request.FILES)
+        print("PETICION POST", request.POST)
+        print("FORM IS VALID", form.is_valid())
+        if form.is_valid():
+            data = form.cleaned_data
+            # data = {
+            #     'phone_number': '123',
+            #     'avatar': <InMemoryUploadedFile: 32.jpg (image/jpeg)>,
+            #     'website': 'https://google.com'
+            # }
+
+            # phone_number = data.get('phone_number')
+            profile.phone_number = data['phone_number']
+            profile.avatar = data['avatar']
+            profile.website = data['website']
+            profile.biography = data.get('biography', 'CASO POR DEFECTO')
+            profile.save()
+
+    else:
+        form = ProfileUpdateForm()
+
+    context = {
+        'form': form,
+        'profile': profile,
+        'user': user
+    }
+
     return render(request, "profile_update.html", context)

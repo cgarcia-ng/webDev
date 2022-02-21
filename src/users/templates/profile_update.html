@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
     {{ block.super }}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 {% endblock head %}
+
+{% block title %}
+	{{ block.super }} Update profile</title>
+{% endblock title %}
 
 {% block maincontent %}
     {% include 'snippets/navbar.html' %}
@@ -18,6 +23,66 @@
         {% endfor %}
     {% endif %}
 
-    <h1>Profile Update</h1>
+    <h2>Profile Update</h2>
+
+    <div class="container">
+
+        <div class="row justify-content-md-center">
+            <div class="col-5 p-4 border rounded" id="profile-box">
+
+                <form method="post" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% for error in form.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+
+                    <div class="media">
+                        {% if profile.avatar %}
+                            <img src="{{ profile.avatar.url }}" class="rounded-circle" height="50" />
+                        {% else%}
+                            <img src="{% static 'img/default-profile.png' %}" class="rounded-circle" height="50" />
+                        {% endif %}
+
+                        <div class="media-body">
+                            <h5 class="ml-4">@{{ user.username }} | {{ user.get_full_name }}</h5>
+                            <p class="ml-4"><input type="file" name="avatar"></p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group text-start">
+                        <label class="mb-1">Website</label>
+                        <input
+                            class="form-control mb-3"
+                            type="url"
+                            name="website"
+                            placeholder="Website"
+                            value="{% if profile.website %}{{ profile.website }}{% endif %}"
+                        />
+                    </div>
+
+                    <div class="form-group text-start">
+                        <label class="mb-1">Biography</label>
+                        <textarea class="form-control mb-3" name="biography">{{ profile.biography }}</textarea>
+                    </div>
+
+                    <div class="form-group text-start">
+                        <label class="mb-1">Phone number</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            name="phone_number"
+                            placeholder="Phone number"
+                            value="{% if profile.phone_number %} {{ profile.phone_number }} {% endif %}"
+                        />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mt-3">Update info</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
 {% endblock maincontent %}
