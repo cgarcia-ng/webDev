@@ -4,6 +4,14 @@
 {% block head %}
     {{ block.super }}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+        /* .file-upload {
+            color: red
+        } */
+    </style>
 {% endblock head %}
 
 {% block title %}
@@ -33,8 +41,10 @@
                 <form method="post" action="." enctype="multipart/form-data">
                     {% csrf_token %}
 
-                    {% for error in form.errors %}
-                        <p>{{ error }}</p>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p>{{ field.label }}: {{ error }}</p>
+                        {% endfor %}
                     {% endfor %}
 
                     <div class="media">
@@ -46,7 +56,9 @@
 
                         <div class="media-body">
                             <h5 class="ml-4">@{{ user.username }} | {{ user.get_full_name }}</h5>
-                            <p class="ml-4"><input type="file" name="avatar"></p>
+                            <label class="btn btn-outline-primary file-upload">
+                                <input type="file" name="avatar">Upload image
+                            </label>
                         </div>
                     </div>
 
@@ -56,28 +68,38 @@
                         <label class="mb-1">Website</label>
                         <input
                             class="form-control mb-3"
-                            type="url"
+                            type="text"
                             name="website"
                             placeholder="Website"
                             value="{% if profile.website %}{{ profile.website }}{% endif %}"
                         />
+                        <div class="invalid-feedback">
+                            {{ form.website.errors }}
+                        </div>
                     </div>
 
                     <div class="form-group text-start">
                         <label class="mb-1">Biography</label>
-                        <textarea class="form-control mb-3" name="biography">{{ profile.biography }}</textarea>
+                        <textarea class="form-control mb-3 {% if form.biography.errors %}is-invalid{% endif %}" name="biography">{% if form.biography.errors %}{{ form.biography.value }}{% else %}{{ profile.biography }}{% endif %}</textarea>
+                        <div class="invalid-feedback">
+                            {{ form.biography.errors }}
+                        </div>
                     </div>
 
                     <div class="form-group text-start">
                         <label class="mb-1">Phone number</label>
                         <input
-                            class="form-control"
+                            class="form-control {% if form.phone_number.errors %}is-invalid{% endif %}"
                             type="text"
                             name="phone_number"
                             placeholder="Phone number"
-                            value="{% if profile.phone_number %} {{ profile.phone_number }} {% endif %}"
+                            value="{% if form.phone_number.errors %}{{ form.phone_number.value }}{% else %}{{ profile.phone_number }}{% endif %}"
                         />
+                        <div class="invalid-feedback">
+                            {{ form.phone_number.errors }}
+                        </div>
                     </div>
+
 
                     <button type="submit" class="btn btn-primary btn-block mt-3">Update info</button>
                 </form>

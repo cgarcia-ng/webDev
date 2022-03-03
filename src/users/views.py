@@ -81,6 +81,7 @@ def user_profile(request):
         print("FORM IS VALID", form.is_valid())
         if form.is_valid():
             data = form.cleaned_data
+            print("DATOS DEL FORMULARIO", data)
             # data = {
             #     'phone_number': '123',
             #     'avatar': <InMemoryUploadedFile: 32.jpg (image/jpeg)>,
@@ -88,10 +89,12 @@ def user_profile(request):
             # }
 
             # phone_number = data.get('phone_number')
+            if data['avatar']:
+                profile.avatar = data['avatar']
+
             profile.phone_number = data['phone_number']
-            profile.avatar = data['avatar']
             profile.website = data['website']
-            profile.biography = data.get('biography', 'CASO POR DEFECTO')
+            profile.biography = data['biography']
             profile.save()
 
     else:
