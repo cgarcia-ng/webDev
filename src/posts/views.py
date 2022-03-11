@@ -80,3 +80,18 @@ def update_post(request, post_id):
         'update_form': form
     }
     return render(request, 'update_post.html', context)
+
+def search_posts(request):
+    query = request.GET['q']
+    posts = Post.objects.filter(title__icontains=query)
+    error = ''
+
+    if not posts:
+        error = "We couldn't found anything"
+
+    context = {
+        'posts': posts,
+        'error': error
+    }
+
+    return render(request, 'search_posts.html', context)

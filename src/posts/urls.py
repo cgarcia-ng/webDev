@@ -5,7 +5,8 @@ from .views import (
     list_posts,
     post_detail,
     create_post,
-    update_post
+    update_post,
+    search_posts
 )
 
 app_name = 'posts'
@@ -17,5 +18,7 @@ urlpatterns = [
     # localhost:8000/post/add
     path('post/add/', create_post, name='post_create'),
     # localhost:8000/post/id/edit
-    path('post/<int:post_id>/edit', update_post, name='post_update')
+    path('post/<int:post_id>/edit', update_post, name='post_update'),
+    # localhost:8000/posts/results
+    path('posts/results', search_posts, name='search_posts')
 ]

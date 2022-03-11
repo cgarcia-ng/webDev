@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block maincontent %}
+{% include 'snippets/navbar.html' %}
+
+{% if error %}
+    <h2>{{ error }}</h2>
+{% endif %}
+
+{% for post in posts %}
+    <h2>{{ post.title }}</h2>
+    <a href="{% url 'posts:post_detail' post.id %}"><img src="{{ post.photo.url }}" alt=""></a>
+{% endfor %}
+{% endblock %}
